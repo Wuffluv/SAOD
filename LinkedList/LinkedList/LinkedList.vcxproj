@@ -130,6 +130,7 @@
     <ClCompile Include="LinkedList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BST.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="LinkedList.h" />
   </ItemGroup>

@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include "LinkedList.h"
 #include "Iterator.h"
+#include "BST.h"
+
 
 using namespace std;
 
@@ -43,6 +45,23 @@ int main() {
     // Демонстрация итератора
     cout << "Обход с использованием итератора:" << endl;
     for (Iterator<int>* it = list.begin(); *it != *list.end(); ++(*it)) {
+        cout << **it << " ";
+    }
+    cout << endl;
+
+    cout << "\n===== Работа с BST и итератором =====\n";
+
+    BST<int> bst;
+    bst.insert(50);
+    bst.insert(30);
+    bst.insert(70);
+    bst.insert(20);
+    bst.insert(40);
+    bst.insert(60);
+    bst.insert(80);
+
+    cout << "Обход BST с помощью итератора (LNR): ";
+    for (Iterator<int>* it = bst.begin(); *it != *bst.end(); ++(*it)) {
         cout << **it << " ";
     }
     cout << endl;
