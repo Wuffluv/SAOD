@@ -101,6 +101,8 @@ public:
     TreeNode<T>* getRoot() const {
         return root;
     }
+
+
 };
 
 #endif // BST_H

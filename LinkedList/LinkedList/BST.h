@@ -32,8 +32,8 @@ private:
         return node;
     }
 
-    // Рекурсивный обход (LNR)
-    void inOrder(TreeNode<T>* node, std::vector<T>& result) const {
+    // Статический рекурсивный обход (LNR)
+    static void inOrder(TreeNode<T>* node, std::vector<T>& result) {
         if (!node) return;
         inOrder(node->left, result);
         result.push_back(node->data);
@@ -68,7 +68,7 @@ public:
 
     public:
         BSTIterator(TreeNode<T>* root) : index(0) {
-            inOrder(root, elements); // заполняем вектор при создании
+            BST<T>::inOrder(root, elements); // заполняем вектор при создании
         }
 
         T& operator*() override {
