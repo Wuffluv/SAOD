@@ -16,12 +16,14 @@ public:
     // Конструктор узла
     TreeNode(T value) : data(value), left(nullptr), right(nullptr) {}
 
-    // Деструктор для освобождения памяти
+    // Деструктор 
     ~TreeNode() {
-        delete left;   // Рекурсивно удаляем левое поддерево
-        delete right;  // Рекурсивно удаляем правое поддерево
+        delete left;   // удаляем левое поддерево
+        delete right;  // удаляем правое поддерево
     }
 };
+
+
 
 // Функция для вывода дерева 
 template <typename T>
@@ -37,6 +39,31 @@ void printTree(TreeNode<T>* node, int level = 0) {
     printTree(node->left, level + 1);
 }
 
+
+//поиск
+template <typename T>
+TreeNode<T>* searchTree(TreeNode<T>* node, const T& value) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    //Проверка совпадения с искомым значением
+    if (node->data == value) {
+        return node;
+    }
+
+    //переход поиска
+    if (node->data < value) {
+        return searchTree(node->right, value); 
+
+    }
+    else {
+       return searchTree(node->left, value);
+    }
+
+ 
+}
+
 // Функция для просмотра содержимого узла
 template <typename T>
 void printNodeData(TreeNode<T>* node) {
@@ -46,6 +73,47 @@ void printNodeData(TreeNode<T>* node) {
     else {
         std::cout << "Узел пустой" << std::endl;
     }
+}
+
+
+// Вставка
+template <typename T>
+TreeNode<T>* insert(TreeNode<T>*& node, const T& value) {
+    // Если дерево пустое, создаём новый узел как корень
+    if (node == nullptr) {
+        node = new TreeNode<T>(value);
+        return node;
+    }
+
+    // Шаг 1: Ищем, существует ли значение в дереве
+    TreeNode<T>* current = node;
+    TreeNode<T>* parent = nullptr;
+
+    while (current != nullptr) {
+        parent = current;
+        if (value == current->data) {
+            // Шаг 2: Если значение найдено, обновляем его
+            current->data = value;
+            return current;
+        }
+        else if (value < current->data) {
+            current = current->left;
+        }
+        else {
+            current = current->right;
+        }
+    }
+
+    // Шаг 3: Если значение не найдено, вставляем новый узел после последнего узла
+    TreeNode<T>* newNode = new TreeNode<T>(value);
+    if (value < parent->data) {
+        parent->left = newNode;
+    }
+    else {
+        parent->right = newNode;
+    }
+
+    return newNode;
 }
 
 // NLR (Pre-order) обход создание массива
@@ -139,23 +207,26 @@ void deleteTree(TreeNode<T>*& node) {
     node = nullptr; // Обнуляем указатель
 }
 
-// Функция подсчёта узлов (на основе NLR)
+// подсчёта узлов  NLR)
 template <typename T>
 int countNodes(TreeNode<T>* node) {
     if (node == nullptr) return 0;
     return 1 + countNodes(node->left) + countNodes(node->right);
 }
 
-// Функция определения глубины дерева (на основе NLR)
+
+// определение глубины дерева (NLR)
 template <typename T>
 int treeDepth(TreeNode<T>* node) {
-    if (node == nullptr) return 0;
+    if (node == nullptr) return -1;
     int leftDepth = treeDepth(node->left);
     int rightDepth = treeDepth(node->right);
     return 1 + std::max(leftDepth, rightDepth);
 }
 
-// Объявление функции для создания дерева
+
+
+// создание дерева
 TreeNode<int>* createSampleTree();
 
 #endif 

@@ -208,26 +208,5 @@ public:
         return false; // Ёлемент не найден
     }
 
-    // ћетод дл€ выполнени€ турнирной сортировки элементов в куче
-    void TournamentSort()
-    {
-        // —оздаем временную кучу дл€ выполнени€ сортировки
-        Heap<T> tempHeap(heapSize);
-
-        // ѕостепенно извлекаем максимальные элементы из текущей кучи
-        // и вставл€ем их во временную кучу, пока текуща€ куча не станет пустой
-        while (!IsEmpty())
-        {
-            T maxElement = ExtractMax();
-            tempHeap.InsertOld(maxElement);
-        }
-
-        // «амен€ем текущую кучу отсортированными элементами из временной кучи
-        delete[] heapArray;
-        heapArray = tempHeap.heapArray;
-        heapSize = tempHeap.heapSize;
-        arraySize = tempHeap.arraySize;
-        tempHeap.heapArray = nullptr; // ”станавливаем указатель временной кучи в nullptr,
-        // чтобы не освободить пам€ть дважды в ее деструкторе
-    }
+   
 };

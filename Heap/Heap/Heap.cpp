@@ -6,6 +6,7 @@
 #include "Test.h"
 
 int main() {
+    setlocale(LC_ALL, "RUS");
     Heap<int> heap(5);
 
     heap.Insert(5);
@@ -75,6 +76,9 @@ int main() {
     std::cout << "is_heap: " << is_heap(v.begin(), v.end());
     std::cout << std::endl;
 
+    //Тесты
+    std::cout << "\n" << std::endl;
+    std::cout << "Тесты: \n" << std::endl;
     TestConstructor();
     TestInsert();
     TestExtractMax();
@@ -83,7 +87,9 @@ int main() {
     TestDelete();
     TestSearch();
     TestDelete2();
-
+    std::cout << "\n" << std::endl;
+    std::cout << "Конец тестов: \n" << std::endl;
+    std::cout << "\n" << std::endl;
 
     heap.InsertOld(5);
     heap.InsertOld(3);
@@ -92,8 +98,8 @@ int main() {
     heap.InsertOld(4);
     heap.InsertOld(12);
     heap.InsertOld(1);
-    heap.TournamentSort();
-    std::cout << "sort tour \n";
+ 
+ 
     heap.print();
 
 

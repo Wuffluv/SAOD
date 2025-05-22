@@ -5,7 +5,8 @@
 #include <list>
 #include <vector>
 
-// Удвоение узлов (добавил для теста)
+
+// Удвоение узлов (тестим для проверки что значения работают)
 void doubleValue(int& x) {
     x *= 2;
 }
@@ -27,13 +28,24 @@ TreeNode<int>* createSampleTree() {
 int main() {
     setlocale(LC_ALL, "RUS"); 
 
-    // === Лабораторная работа: бинарное дерево ===
     std::cout << "\n=== Лабораторная работа: Обычное бинарное дерево ===\n" << std::endl;
 
     // Создаем бинарное дерево
     TreeNode<int>* root = createSampleTree();
     std::cout << "Структура бинарного дерева:" << std::endl;
     printTree(root);
+
+    // Вставляем новое значение 
+    std::cout << "\nВставляем значение 6 в дерево:" << std::endl;
+    insert(root, 6);
+    std::cout << "Структура дерева после вставки:" << std::endl;
+    printTree(root);
+
+    // Поиск первого вхождения значения
+    int searchValue = 5; 
+    std::cout << "Поиск 5:  " << searchValue << ":" << std::endl;
+    TreeNode<int>* foundNode = searchTree(root, searchValue);
+    printNodeData(foundNode);
 
     // Демонстрация обходов: создание массивов
     std::vector<int> nlr_result, lnr_result, lrn_result;
@@ -113,7 +125,9 @@ int main() {
     std::cout << "\nУдаление всех узлов..." << std::endl;
     deleteTree(root);
 
-    // === Лабораторная работа: Бинарное дерево поиска (BST) ===
+    
+
+
     std::cout << "\n=== Лабораторная работа: Бинарное дерево поиска (BST) ===\n" << std::endl;
 
     // Создаём бинарное дерево поиска
@@ -183,6 +197,11 @@ int main() {
     // Просмотр содержимого корневого узла BST
     std::cout << "\nПросмотр содержимого корневого узла BST:" << std::endl;
     printNodeData(bst.getRoot());
+    
+    
+   
+
+
 
     
 

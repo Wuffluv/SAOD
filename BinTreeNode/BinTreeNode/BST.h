@@ -7,13 +7,13 @@
 #include <vector>
 #include <functional>
 
-// Шаблонный класс для бинарного дерева поиска
+// Шаблонный класс для BST
 template <typename T>
 class BST {
 private:
     TreeNode<T>* root; // Указатель на корень дерева
 
-    // Вспомогательная функция для рекурсивной вставки узла
+    //функция для рекурсивной вставки узла
     TreeNode<T>* insertRec(TreeNode<T>* node, T value) {
         if (node == nullptr) {
             return new TreeNode<T>(value);
@@ -27,7 +27,7 @@ private:
         return node;
     }
 
-    // Вспомогательная функция для рекурсивного поиска узла
+    //функция для рекурсивного поиска узла
     TreeNode<T>* searchRec(TreeNode<T>* node, T value) const {
         if (node == nullptr || node->data == value) {
             return node;
@@ -37,8 +37,9 @@ private:
         }
         return searchRec(node->right, value);
     }
+    
 
-    // Вспомогательная функция для копирования дерева
+    //функция для копирования дерева
     TreeNode<T>* copyRec(TreeNode<T>* node) const {
         if (node == nullptr) {
             return nullptr;
@@ -83,10 +84,12 @@ public:
         }
         std::queue<TreeNode<T>*> q;
         q.push(root);
-        while (!q.empty()) {
-            TreeNode<T>* node = q.front();
-            q.pop();
-            result.push_back(node->data);
+        while (!q.empty()) {//empty – проверка дерева на пустоту,
+            TreeNode<T>* node = q.front();//front()- Возвращает ссылку на первый элемент в очереди
+            //(элемент, который находится в начале очереди и будет удален следующим)
+            q.pop();//pop() - Удаляет первый элемент из очереди 
+            //(тот, который был бы возвращен методом front())
+            result.push_back(node->data);//push_back Добавляет эоемент в конец вектора
             if (node->left) {
                 q.push(node->left);
             }
