@@ -13,7 +13,7 @@ class BST {
 private:
     TreeNode<T>* root; // Указатель на корень дерева
 
-    //функция для рекурсивной вставки узла
+    // Функция для рекурсивной вставки узла
     TreeNode<T>* insertRec(TreeNode<T>* node, T value) {
         if (node == nullptr) {
             return new TreeNode<T>(value);
@@ -27,7 +27,7 @@ private:
         return node;
     }
 
-    //функция для рекурсивного поиска узла
+    // Функция для рекурсивного поиска узла
     TreeNode<T>* searchRec(TreeNode<T>* node, T value) const {
         if (node == nullptr || node->data == value) {
             return node;
@@ -37,9 +37,8 @@ private:
         }
         return searchRec(node->right, value);
     }
-    
 
-    //функция для копирования дерева
+    // Функция для копирования дерева
     TreeNode<T>* copyRec(TreeNode<T>* node) const {
         if (node == nullptr) {
             return nullptr;
@@ -53,6 +52,20 @@ private:
 public:
     // Конструктор
     BST() : root(nullptr) {}
+
+    // Конструктор копирования
+    BST(const BST<T>& other) {
+        root = copyRec(other.root);
+    }
+
+    // Оператор присваивания
+    BST<T>& operator=(const BST<T>& other) {
+        if (this != &other) {
+            deleteTree(root); // Освобождаем старую память
+            root = copyRec(other.root); // Создаем глубокую копию
+        }
+        return *this;
+    }
 
     // Деструктор
     ~BST() {
@@ -84,12 +97,12 @@ public:
         }
         std::queue<TreeNode<T>*> q;
         q.push(root);
-        while (!q.empty()) {//empty – проверка дерева на пустоту,
-            TreeNode<T>* node = q.front();//front()- Возвращает ссылку на первый элемент в очереди
-            //(элемент, который находится в начале очереди и будет удален следующим)
-            q.pop();//pop() - Удаляет первый элемент из очереди 
-            //(тот, который был бы возвращен методом front())
-            result.push_back(node->data);//push_back Добавляет эоемент в конец вектора
+        while (!q.empty()) { // empty – проверка дерева на пустоту
+            TreeNode<T>* node = q.front(); // front() - Возвращает ссылку на первый элемент в очереди
+            // (элемент, который находится в начале очереди и будет удален следующим)
+            q.pop(); // pop() - Удаляет первый элемент из очереди
+            // (тот, который был бы возвращен методом front())
+            result.push_back(node->data); // push_back Добавляет элемент в конец вектора
             if (node->left) {
                 q.push(node->left);
             }
@@ -104,8 +117,6 @@ public:
     TreeNode<T>* getRoot() const {
         return root;
     }
-
-
 };
 
 #endif // BST_H
