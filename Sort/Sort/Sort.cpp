@@ -1,86 +1,56 @@
 ﻿#include <iostream>
 #include <vector>
-#include <algorithm>
+#include <queue>
 using namespace std;
 
-void printList(const vector<int>& arr);
-void tournamentSort(vector<int>& arr);
+// Функция для вывода массива
+void printList(const vector<int>& arr) {
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
+// Функция сортировки с использованием min-heap
+void heapSort(vector<int>& arr) {
+    // Создаем min-heap с компаратором greater<int>
+    //это объект или функция, которая определяет, как сравнивать два элемента в контексте 
+    // сортировки или упорядочивания. В C++ компаратор используется в структурах данных 
+    // (например, std::priority_queue, std::sort, std::set) для задания порядка элементов.
+    //std::greater<int> — это стандартный компаратор из библиотеки <functional>, 
+    // который определяет сравнение элементов так, что больший элемент считается "меньше" в
+    // контексте упорядочивания. Это приводит к созданию min-heap в std::priority_queue.
+
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+
+    // Вставляем все элементы массива в кучу
+    for (int num : arr) {
+        minHeap.push(num);
+    }
+
+    // Извлекаем элементы из кучи и записываем в массив
+    for (int i = 0; i < arr.size(); i++) {
+        arr[i] = minHeap.top(); // Берем минимальный элемент
+        minHeap.pop();          // Удаляем его из кучи
+    }
+}
 
 int main() {
+    // Инициализация тестового массива
     vector<int> arr = { 8, 34, 233, 21, 89, 13, 5, 2, 144, 3, 55, 1 };
 
-    cout << "Start array: ";
+    // Вывод исходного массива
+    cout << "Начальный массив: ";
     printList(arr);
     cout << endl;
 
-    tournamentSort(arr);
+    // Сортировка массива
+    heapSort(arr);
 
-    cout << "End array: ";
+    // Вывод отсортированного массива
+    cout << "Конечный массив: ";
     printList(arr);
-
     cout << endl;
 
-
-}
-
-void printList(const vector<int>& arr)
-{
-    // Выводим массив
-    for (int i = 0; i < arr.size(); i++)
-    {
-        cout << arr[i] << " ";
-    }
-}
-
-void tournamentSort(vector<int>& arr)
-{
-    // Определяем размер дерева турнира
-    int treeSize = 1;
-    while (treeSize <= arr.size()) {
-        treeSize *= 2;
-    }
-
-    // Создаем вектор с размером, равным общему количеству узлов (элементов) в дереве турнира
-    vector<int> tree(2 * treeSize, numeric_limits<int>::max());
-
-    // Заполняем узлы дерева элементами из неотсортированного массива
-    for (int i = 0; i < arr.size(); i++) {
-        tree[treeSize + i] = arr[i];
-    }
-
-    // Строим дерево турнира, выбирая минимум из каждой пары узлов
-    for (int i = treeSize - 1; i >= 1; i--) {
-        tree[i] = min(tree[2 * i], tree[2 * i + 1]);
-    }
-
-    // Извлекаем элементы из дерева турнира в возрастающем порядке
-    int sortIndex = 0;
-    while (sortIndex < arr.size()) {
-        // Записываем корень в исходный массив и присваиваем корню "бесконечное" значение
-        arr[sortIndex++] = tree[1];
-        tree[1] = numeric_limits<int>::max();
-
-        // Заменяем минимальное значение на "бесконечность"
-        int node = 1;
-        while (node < treeSize) {
-            int leftChild = 2 * node;
-            int rightChild = 2 * node + 1;
-
-            // Узел получает индекс наименьшего значения
-            node = (tree[leftChild] < tree[rightChild]) ? leftChild : rightChild;
-
-            // Устанавливаем наименьшее число на "бесконечность"
-            if (tree[leftChild] < tree[rightChild]) {
-                tree[leftChild] = numeric_limits<int>::max();
-            }
-            else {
-                tree[rightChild] = numeric_limits<int>::max();
-            }
-        }
-
-        // Распространяем минимум каждой пары узлов
-        for (int i = treeSize - 1; i >= 1; i--) {
-            tree[i] = min(tree[2 * i], tree[2 * i + 1]);
-        }
-    }
+    return 0;
 }

@@ -36,7 +36,7 @@ int main() {
     heap.Search(6);
 
 
-    std::cout << "Heap size: " << heap.Size() << std::endl;
+    std::cout << "Размер кучи: " << heap.Size() << std::endl;
     heap.print();
 
 
@@ -53,7 +53,7 @@ int main() {
     std::cout << std::endl;
 
 
-    std::vector<int> v{/* 3, 2, 4, 1, 5, 9*/ 3, 5, 1, 2, 12, 6, 7, 4 };
+    std::vector<int> v{3, 5, 1, 2, 12, 6, 7, 4 };
     int* arr = new int[10] { 3, 2, 4, 1, 5, 9 };
 
 
@@ -73,7 +73,7 @@ int main() {
         std::cout << x << " ";
     // 9 5 4 1 2 3
 
-    std::cout << "is_heap: " << is_heap(v.begin(), v.end());
+    std::cout << "куча: : " << is_heap(v.begin(), v.end());
     std::cout << std::endl;
 
     //Тесты
@@ -106,4 +106,4 @@ int main() {
 
 
     return 0;
-}
+};
